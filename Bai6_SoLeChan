@@ -1,0 +1,31 @@
+//So chan le cua 1 day so:
+#include<stdio.h>
+void main(){
+int n;
+printf("Nhap so phan tu:\n");
+scanf("%d",&n);
+int a[n],*p,i;
+p=a;
+for(i=0;i<n;i++)
+{
+    printf("a[%d]=\n",i+1);
+    scanf("%d",p+i);
+}
+printf("Day ban nhap:\t");
+for(i=0;i<n;i++)
+{
+    printf("%d  ",*(p+i));
+}
+printf("\nDay chan: ");
+for(i=0;i<n;i++)
+{
+    if(*(p+i)%2==0)
+        printf("%d  ",*(p+i));
+}
+printf("\nDay le: ");
+for(i=0;i<n;i++)
+{
+    if(*(p+i)%2==1)
+        printf("%d  ",*(p+i));
+}
+}
