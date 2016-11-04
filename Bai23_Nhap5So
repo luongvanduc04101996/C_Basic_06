@@ -1,0 +1,17 @@
+//Nhap vao mang 5 so bat ky:
+#include<stdio.h>
+void main(){
+int a[5],*p,i;
+p=a;
+printf("Nhap vao mang 5 so bat ky:\n");
+for(i=0;i<5;i++)
+{
+    printf("So thu %d: ",i+1);
+    scanf("%d",p+i);
+}
+printf("5 so ban nhap la:\n");
+for(i=0;i<5;i++)
+{
+    printf("%3d",*(p+i));
+}
+}
