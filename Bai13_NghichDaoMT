@@ -1,0 +1,137 @@
+//Nghich dao ma tran
+#include<stdio.h>
+void main(){
+int n,k,i,j;
+printf("Cap cua ma tran tu 2->4: ");
+scanf("%d",&n);
+printf("\nMoi ban nhap:\n");
+int a[n][n],b[n][n],*p,*q;
+p=a; q=b;
+NhapMaTran(p,n);
+printf("Ma tran ban nhap:\n");
+XuatMaTran(p,n);
+printf("ung voi ma tran so cap:\n");
+MaTranSoCap(q,n);
+XuatMaTran(q,n);
+//Tinh Det(A):
+int det;
+if(n==2)
+{
+    det=*(p)**(p+3)-*(p+1)**(p+2);
+}
+else if(n==3)
+    det=(*(p)**(p+4)**(p+8)+*(p+1)**(p+5)**(p+6)+*(p+2)**(p+3)**(p+7)-*(p+2)**(p+4)**(p+6)-*(p+5)**(p+7)**(p+0)-*(p+8)**(p+1)**(p+3));
+else
+    det=*p*(*(p+5)**(p+10)**(p+15)+*(p+6)**(p+11)**(p+13)+*(p+7)**(p+9)**(p+14)-*(p+7)**(p+10)**(p+13)-*(p+11)**(p+14)**(p+5)-*(p+15)**(p+9)**(p+6))
+        -*(p+1)*(*(p+4)**(p+10)**(p+15)+*(p+6)**(p+11)**(p+12)+*(p+7)**(p+8)**(p+14)-*(p+7)**(p+10)**(p+12)-*(p+11)**(p+14)**(p+4)-*(p+15)**(p+8)**(p+6))
+        +*(p+2)*(*(p+4)**(p+9)**(p+15)+*(p+5)**(p+11)**(p+12)+*(p+7)**(p+8)**(p+13)-*(p+7)**(p+9)**(p+12)-*(p+11)**(p+13)**(p+4)-*(p+15)**(p+8)**(p+5))
+        -*(p+3)*(*(p+4)**(p+9)**(p+14)+*(p+5)**(p+10)**(p+12)+*(p+6)**(p+8)**(p+13)-*(p+6)**(p+9)**(p+12)-*(p+10)**(p+13)**(p+4)-*(p+14)**(p+8)**(p+5));
+
+if(det==0)
+{
+    printf("Khong co ma tran nghich dao");
+}
+else
+{
+for(i=0;i<n;i++)
+{
+    if (*(p+(i*n)+i)==0)
+    {
+        if(*(p+((i+1)*n+i))!=0)
+        {
+            for(j=i;j<n;j++)
+            {
+                *(p+((i+1)*n)+j)=*(p+((i+1)*n)+j)/(*(p+((i+1)*n)+i));
+                *(p+j)=*(p+j)+*(p+((i+1)*n)+j);
+            }
+        }
+        else if(*(p+((i+2)*n)+i)!=0)
+           {
+               for(j=0;j<n;j++)
+                {
+                *(p+((i+2)*n)+j)=*(p+((i+2)*n)+j)/(*(p+((i+2)*n)+i));
+                *(p+j)=*(p+j)+*(p+((i+2)*n)+j);
+                }
+           }
+        else
+        {
+            for(j=0;j<n;j++)
+                {
+                *(p+((i+3)*n)+j)=*(p+((i+3)*n)+j)/(*(p+((i+3)*n)+i));
+                *(p+j)=*(p+j)+*(p+((i+3)*n)+j);
+                }
+        }
+
+    }
+    else continue;
+}
+
+for(k=0;k<n;k++)
+{
+     for(i=0;i<n;i++)
+    {
+        if(*(p+(k*n)+k)==0) continue;
+        else
+        for(j=0;j<n;j++)
+        {
+        *(p+(i*n)+j)=*(p+(i*n)+j)/(*(p+(k*n)+k));
+        }
+    }
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            if(i!=k)
+            *(p+(i*n)+j)=*(p+(i*n)+j)-*(p+(k*n)+j);
+        }
+    }
+}
+printf("PHAI RA LAI MA TRAN SO CAP MOI DUNG => SAI ROI KHONG LAM NUA :((\n");
+XuatMaTran(p,n);
+}
+
+}
+
+void MaTranSoCap(int *p,int n)
+{
+    int i,j;
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            if(i==j)
+            {
+                *(p+(i*n)+j)=1;
+            }
+            else
+            {
+                *(p+(i*n)+j)=0;
+            }
+        }
+    }
+}
+void NhapMaTran(int *p, int n)
+{
+    int i,j;
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            printf("A[%d][%d]=",i+1,j+1);
+            scanf("%d",p+(i*n)+j);
+        }
+    }
+}
+void XuatMaTran(int *p,int n)
+{
+    int i,j;
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            printf("%d\t",*(p+(i*n)+j));
+        }
+        printf("\n");
+    }
+}
+
